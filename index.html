@@ -4,20 +4,21 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>vue-boolzapp</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
-    
+
     <div id="app">
-        <!--Container generale -->
-        <div id=" container-generale">
-            <!-- Chat-->
+        <!-- Container generale -->
+        <div id="general-container">
+            <!-- Container della chat-->
             <div id="app-container">
-                <!-- Colonna di sinistra -->
-                <div class="col-sx-user">
-                    <!-- Utente ed immagine -->
-                    <div class="col-sx-user-active">
+                <!-- parte di sinistra con utente -->
+                <div class="col-sx-user-contact">
+                    <!-- Contatto attualmente attivo -->
+                    <div class="col-sx-user-contact-active">
                         <!-- Utente -->
                         <div class="user-container">
                             <!-- Foto -->
@@ -30,7 +31,7 @@
                             </div>
                         </div>
 
-                        <!-- Icone -->
+                        <!-- Icone dell'utente -->
                         <div class="user-icon">
                             <ul>
                                 <li>
@@ -46,33 +47,39 @@
                         </div>
                     </div>
 
-                    <!-- Display delle chat e notifiche -->
-                    <div class="notifications">
-                        <!-- Notifiche -->
-                        <div class="notifications-icon">
+                    <!-- Zona notifiche -->
+                    <div class="notifiche">
+                        <!-- Zona notifiche icona -->
+                        <div class="notifiche-icon">
                             <i class="fas fa-bell-slash"></i>
                         </div>
-                        <!-- Testo delle notifiche -->
-                        <div class="notifications-text">
+                        <!-- Testo -->
+                        <div class="notifiche-text">
                             <p>Ricevi notitiche di nuovi messaggi</p>
                             <a href="#">Attiva notifiche desktop</a>
                         </div>
                     </div>
 
-                    <!-- Barra di ricerca -->
-                    <div class="search-bar">
+                    <!-- Zona ricerca contatti -->
+                    <div class="search-contact">
                         <i class="fas fa-search"></i>
-                        <input type="text" placeholder="Cerca o inizia una nuova chat">
+                        <input @keyup="searchRicerca" v-model="selected" type="search" placeholder="Cerca o inizia una nuova chat">
                     </div>
 
-                    <!-- Lista dei contatti -->
+                    <!-- Lista di tutti i contatti -->
                     <div class="contact-list">
-                        <div v-for="(contact, index) in contacts" class="single-user-chat" :class="{'active' : index === currentContactAttivo}">
+                        <!-- Zona per singolo utente -->
+                        <div @click="currentActive(index)" v-if="contact.visible === true" v-for="(contact, index) in contacts" class="single-user-chat" :class="{'active' : index === currentContactAttivo}">
+                            <!-- Singolo utente chat -->
                             <div class="single-user-chat-image">
                                 <img :src="'img/avatar' + contact.avatar + '.jpg'" >
                             </div>
                             <div class="single-user-chat-name">
-                                {{contact.name}}
+                                <div class="title-text-contact">
+                                    <span class="name">{{contact.name}}</span>
+                                    <span class="time">{{contact.messages[contact.messages.length -1].date}}</span>
+                                </div>
+                                <div class="mex">{{contact.messages[contact.messages.length -1].text}}</div>
                             </div>
                         </div>
                     </div>
@@ -80,19 +87,20 @@
                
                  <!-- Colonna di destra -->
                  <div class="col-chat">
-                    <!-- Chat attualmente in uso -->
+                    <!-- Contatto attualmente attivo -->
                     <div class="user-contact-active">
+                         <!-- Utente -->
                          <div class="user-image-name">
                             <div class="user-image">
                                 <img :src="'img/avatar' + contacts[currentContactAttivo].avatar + '.jpg'" alt="">
                              </div>
                              <div class="user-name">
                                  {{contacts[currentContactAttivo].name}}
-                                 <p>Ultimo accesso oggi alle</p>
+                                 <p>Ultimo accesso {{dateCurrent()}}</p>
                              </div>
                          </div>
 
-                         <!-- Icone utente-->
+                         <!-- Zona icone-->
                         <div class="user-icon">
                             <ul>
                                 <li>
@@ -108,35 +116,45 @@
                         </div>
                     </div>
 
-                    <!-- Contenitore della chat -->
+                    <!-- Zona Chat -->
                     <div class="chat-area">
                         <div class="chat-area-container">
                             <div class="single-message" v-for="message in contacts[currentContactAttivo].messages" :class="{'sent' : message.status === 'sent', 'received' : message.status === 'received'}">
                                 <p>{{message.text}}</p>
+                                
                                 <span>{{message.date}}</span>
                             </div>
                         </div>
                     </div>
 
+                    <!-- Invio del messaggio  -->
                     <div class="message-area">
                         <div class="message-icon">
                             <a href="#"><i class="far fa-smile"></i></a>
                         </div>
-                        <div class="message-area-text">
-                            <input type="text" placeholder="Scrivi un messaggio">
+                        <!-- Zona del messaggio -->
+                        <div class="message-area-testo">
+                            <input v-model="newMessage" @keyup.enter="messageSent" type="text" placeholder="Scrivi un messaggio">
                         </div>
                         <div class="message-icon">
                             <a href="#"><i class="fas fa-microphone"></i></a>
                         </div>
                     </div>
 
+
+
                  </div>
+
 
             </div>
         </div>
     </div>
 
+
+    
     <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
-    <script type="text/javascript"></script>
+    <script src="https://unpkg.com/dayjs@1.8.21/dayjs.min.js"></script>
+    <script>dayjs().format()</script>
+    <script type="text/javascript" src="main.js"></script>
 </body>
 </html>

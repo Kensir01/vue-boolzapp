@@ -1,3 +1,4 @@
+/* GENERALI */
 * {
     margin: 0;
     padding: 0;
@@ -5,20 +6,23 @@
 }
 
 body {
-    font-size: 14px;
     font-family: Arial, Helvetica, sans-serif;
 }
 
-#container-generale {
+/* CONTENITORE BACKGROUND */
+#general-container {
     width: 100%;
     height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
+
+    /* COLORE BACKGROUND DIVISIONE NETTA */    
     background: linear-gradient(to bottom, #009688 0px, #009688 15vh, #dddbd1 15vh, #d2dbdc 100%);
 }
 
 
+/* CONTENITORE APP CHAT */
 #app-container {
     width: 80%;
     height: 90%;
@@ -28,7 +32,8 @@ body {
     overflow: hidden;
 }
 
-.col-sx-user {
+/* UTENTE E CHAT COLONNA */
+.col-sx-user-contact {
     height: 100%;
     width: 30%;
     display: flex;
@@ -37,12 +42,14 @@ body {
     background-color: #fff;
 }
 
-.col-sx-user-active {
+/* UTENTE COLONNA NOME UTENTE E IMMAGINE ATTIVA*/
+.col-sx-user-contact-active {
     width: 100%;
     display: flex;
     background-color: #eaeaea;
 }
 
+/* UTENTE */
 .user-container {
     display: flex;
     align-items: center;
@@ -50,6 +57,7 @@ body {
     width: 70%;
 }
 
+/* UTENTE IMMAGINE */
 .user-image {
     width: 40px;
     height: 40px;
@@ -65,11 +73,13 @@ img {
     object-fit: cover;
 }
 
+/* UTENTE NOME */
 .user-name {
     padding-left: 10px;
-    font-weight: 600;
+    font-weight: 500;
 }
 
+/* UTENTE ICONE */
 .user-icon {
     display: flex;
     align-items: center;
@@ -93,6 +103,7 @@ a {
     padding: 0px 7px;
 }
 
+/* UTENTE ICONE - SELEZIONO ULTIMA ICONA */
 .user-icon li:last-child{
     margin-right: 10px;
 }
@@ -102,14 +113,25 @@ a {
     color: #b1b1b1;
 }
 
-.notifications {
+.user-icon i:hover{
+    color: grey;
+}
+
+.user-icon i:hover{
+    color: grey;
+    transition: 1s;
+}
+
+/* NOTIFICHE / CHAT */
+.notifiche {
     display: flex;
     align-items: center;
     background-color: #8edafb;
     padding: 10px;
 }
 
-.notifications-icon {
+/* NOTIFICHE ICONE */
+.notifiche-icon {
     color: #8edafb;
     background-color: #fff;
     width: 40px;
@@ -119,22 +141,24 @@ a {
     border-radius: 50%;
 }
 
-.notifications-text {
+/* NOTIFICHE TESTO */
+.notifiche-text {
     padding: 0px 10px;
 }
 
-.notifications-text p {
+.notifiche-text p {
     font-size: 13px;
-    font-weight: 600;
+    font-weight: 500;
 }
 
-.notifications-text a {
+.notifiche-text a {
     font-size: 12px;
     text-decoration: underline;
     color: grey;
 }
 
-.search-bar input {
+/* RICERCA CONTATTI */
+.search-contact input {
     width: 100%;
     border: none;
     border-radius: 5px;
@@ -143,7 +167,7 @@ a {
     color: #b1b1b1;
 }
 
-.search-bar {
+.search-contact {
     width: 100%;
     position: relative;
     background-color: #eaeaea;
@@ -151,7 +175,7 @@ a {
     padding: 5px;
 }
 
-.search-bar i {
+.search-contact i {
     position: absolute;
     top: 10px;
     left: 20px;
@@ -172,14 +196,45 @@ a {
 }
 
 .single-user-chat-image {
-    width: 50px;
-    height: 50px;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
     overflow: hidden;
 }
 
 .single-user-chat-name {
    padding-left: 10px;
+
+   display: flex;
+   flex-direction: column;
+   width: 100%;
+}
+
+.title-text-contact {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.single-user-chat-name .name {
+    font-weight: 500;
+    font-size: 14px;
+}
+
+.single-user-chat-name .mex {
+    width: 100px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    color: gray;
+    font-size: 12px;
+    margin-top: 7px;
+}
+
+.single-user-chat-name .time {
+    font-size: 10px;
+    color: gray;
 }
 
 .col-chat {
@@ -225,8 +280,8 @@ a {
 
 .single-message {
     font-size: 14px;
-    max-width: 30%;
-    min-width: 25%;
+    max-width: 40%;
+    min-width: 35%;
     border-radius: 5px;
     margin-bottom: 10px;
     position: relative;
@@ -234,7 +289,8 @@ a {
 
 .single-message p{
     padding: 15px;
-    margin-bottom: 7px;
+    margin-bottom: 10px;
+    font-size: 13px;
 }
 
 .single-message span {
@@ -262,11 +318,16 @@ a {
     color: #899091;
 }
 
-.message-area-text {
+.message-icon a i:hover{
+    color: rgb(112, 112, 112);
+    transition: 3s;
+}
+
+.message-area-testo {
     flex-grow: 1;
 }
 
-.message-area-text input {
+.message-area-testo input {
     width: 100%;
     border: none;
     border-radius: 5px;
@@ -274,7 +335,6 @@ a {
     padding: 10px;
     color: #b1b1b1;
 }
-
 
 .sent {
     align-self: flex-end;
